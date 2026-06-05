@@ -95,6 +95,7 @@ func main() {
 		enableWatches            = app.Flag("enable-watches", "Enable support for watching resources.").Default("false").Envar("ENABLE_WATCHES").Bool()
 		enableServerSideApply    = app.Flag("enable-server-side-apply", "Enable server side apply to sync object manifests to k8s API.").Default("true").Envar("ENABLE_SERVER_SIDE_APPLY").Bool()
 		enableChangeLogs         = app.Flag("enable-changelogs", "Enable support for capturing change logs during reconciliation.").Default("false").Envar("ENABLE_CHANGE_LOGS").Bool()
+		stripManagedFields       = app.Flag("strip-managed-fields", "Strip metadata.managedFields from status.atProvider.manifest.").Default("false").Envar("STRIP_MANAGED_FIELDS").Bool()
 		// Additional legacy field managers to upgrade to Server-side apply field manager
 		legacyCSAFieldManagers = app.Flag("legacy-csa-field-managers", "Additional legacy client-side apply Kubernetes field manager names for upgrading to SSA field manager").Default().Strings()
 	)
@@ -186,6 +187,7 @@ func main() {
 
 	po := pcontroller.Options{
 		SanitizeSecrets:      *sanitizeSecrets,
+		StripManagedFields:   *stripManagedFields,
 		PollJitter:           pollJitter,
 		PollJitterPercentage: *pollJitterPercentage,
 	}

@@ -23,6 +23,7 @@ import (
 // Options holds the configuration options for the provider controllers
 type Options struct {
 	SanitizeSecrets        bool
+	StripManagedFields     bool
 	PollJitter             time.Duration
 	PollJitterPercentage   uint
 	LegacyCSAFieldManagers []string
